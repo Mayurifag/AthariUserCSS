@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           FurAffinity.net – Tweaks [Ath]
 @namespace      athari
-@version        1.3.0
+@version        1.3.1
 @description    FurAffinity.net: various usability tweaks.
 @author         Athari (https://github.com/Athari)
 @homepageURL    https://github.com/Athari/AthariUserCSS
@@ -275,11 +275,15 @@
       .browse-sidebar-container {
         width: auto !important;
         padding: 12px 8px !important;
-        display: flex !important;
-        flex-flow: row wrap;
-        gap: 8px 24px !important;
-        align-items: center !important;
         white-space: nowrap;
+
+        .sidebar-section {
+          display: flex;
+          flex-flow: row;
+          gap: 8px;
+          align-items: baseline;
+          margin: 0;
+        }
 
         .hidebrowselowres,
         .sidebar-browse-container > h4 {
@@ -298,7 +302,7 @@
           align-self: flex-end;
         }
 
-        .flex-container:has(input[name="order-by"]) {
+        .l-sidebar__sortCriteria {
           .ath-search-header-text("Sort by");
         }
         .jsDateRangeInputs .gridContainer {
@@ -328,13 +332,22 @@
             .ath-search-label-text("5y");
           }
         }
-        .gridContainer:has(input[name="rating-general"]) {
-          .ath-search-header-text("Rating");
-        }
-        .gridContainer:has(input[name="type-art"]) {
+        .sidebar-section:has(select[name="category"]) {
           .ath-search-header-text("Type");
         }
-        .gridContainer:has(input[name="mode"]) {
+        .sidebar-section:has(input[value="1day"]) {
+          .ath-search-header-text("Date");
+        }
+        .sidebar-section:has(input[value="male"]) {
+          .ath-search-header-text("Gender");
+        }
+        .sidebar-section:has(input[name="rating-general"]) {
+          .ath-search-header-text("Rating");
+        }
+        .sidebar-section:has(input[name="type-art"]) {
+          .ath-search-header-text("Type");
+        }
+        .sidebar-section:has(input[name="mode"]) {
           .ath-search-header-text("Search for");
           .gridContainer__item:has(input[value="all"]) {
             .ath-search-label-text("All words");
@@ -369,11 +382,16 @@
           }
         }
 
+        .extra-search-btn-container {
+          margin: 0;
+          order: 1000;
+        }
+
         .browse-sidebar-content,
         #sidebar-options,
         .sidebar-options-content,
-        .sidebar-browse-container,
-        #search-flex-container,
+        #pageid-search &.sidebar-browse-container,
+        .browse-search-flex-container,
         #search-advanced,
         .jsManualRangeContainer:not(.hidden) {
           display: contents !important;
@@ -399,16 +417,22 @@
         }
       }
 
-      .browse-search-flex-container {
+      #search-flex-container,
+      .sidebar-browse-container {
         display: flex !important;
-        flex-flow: row wrap;
+        flex-flow: row wrap !important;
         gap: 4px 16px !important;
         align-items: center !important;
         white-space: nowrap;
+        max-width: none !important;
 
+        .search-flex-container {
+          display: contents;
+        }
         .browse-search-flex-item {
           flex: 0 !important;
           padding: 0 !important;
+          width: auto !important;
 
           input,
           select {
@@ -420,6 +444,10 @@
         .search-flex-item-3 {
           width: auto !important;
         }
+      }
+
+      .browseButtons {
+        margin: 0 0 0 auto !important;
       }
 
       #query-stats {
